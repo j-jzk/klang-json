@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.22'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url = "https://j-jzk.cz/dl/maven"
+    }
+}
+
+ext {
+    junitVersion = '5.8.2'
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "11"
+}
+
+application {
+    mainClass = 'cz.j_jzk.json.MainKt'
+}
+
+
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    implementation("cz.j_jzk.klang:klang:1.0-rc2")
+    implementation("cz.j_jzk.klang:klang-prales:1.0-rc2")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+run {
+    standardInput = System.in
+}
+
